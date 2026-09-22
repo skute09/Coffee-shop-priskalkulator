@@ -8,7 +8,7 @@ menu = {
    "Cappuccino": 3,
    "Macchiato": 2.50,
    "Mocha": 3.50,
-   "Flat White": 2.50
+   "Flat White": 2.50,
 }
 
 coffeeSizes = {
@@ -19,7 +19,7 @@ coffeeSizes = {
 
 takeAwayOptions = {
    "Yes": 1,
-   "No": 0
+   "No": 0,
 }
 
 # orders bruker vi for å lagre hva brukeren har bestilt sånn at vi til slutt kan vise det og regne ut summen av prisen
