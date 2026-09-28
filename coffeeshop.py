@@ -1,4 +1,3 @@
-import os
 #Kilde: The Coffee Shop Price Calculator - www.101computing.net/the-coffee-shop-price-calculator
 
 # Så disse dictionariesene er stilt opp med valg : pris sånn at eg kan enkelt bruke samme funksjon på alle de type valgene
@@ -44,7 +43,6 @@ orders = []
 
 # denne funksjonen bruker vi til å vise informasjon om et valg og spørre brukeren hva de vil velge
 def chooseOption(dict, questionMessage, optionsMessage):
-   currentItemPrice = 0
    # \n er det samme som når du trykker enter
    print("\n----------------------------")
    if optionsMessage:
@@ -60,12 +58,10 @@ def chooseOption(dict, questionMessage, optionsMessage):
       # og resten av bokstavene i ordene vil være lowercase
       option = input(questionMessage).title()
       if option in dict:
-         currentItemPrice += dict[option]
-         break
+         # returner option for å kunne legge det til i order listen
+         return option, dict[option]
       else:
          print("Invalid option. Please select something from the list.")
-   # returner option for å kunne legge det til i order listen
-   return option, currentItemPrice
 
 def orderCoffee():
    # definerer listen med bestillings informasjonen
