@@ -2,7 +2,7 @@
 
 # Så disse dictionariesene er stilt opp med valg : pris sånn at eg kan enkelt bruke samme funksjon på alle de type valgene
 # Har også stilt det opp sånn at spørsmålet og tittelen til valgene er sammen sånn at eg kan loope igjennom uten å måtte manuelt legge til
-# questionMessage, optionsMessage og options i chooseOption parametre fordi loopen gjør det selv når den looper igjennom coffeeTypeOptions
+# questionMessage, optionsMessage og options i chooseOption parametrene fordi loopen gjør det selv når den looper igjennom coffeeTypeOptions
 coffeeTypeOptions = {
    "menu": {
       "questionMessage": "What type of coffee would you like? ",
@@ -46,7 +46,7 @@ def chooseOption(dict, questionMessage, optionsMessage):
    # \n er det samme som når du trykker enter
    print("\n----------------------------")
    if optionsMessage:
-      # her printer vi på en måte tittelen til alle itemsa som blir printet etter på
+      # her printer vi på en måte tittelen til alle valgene som blir printet etter på
       print(optionsMessage)
       # dict er dictionaryet med de mulige valgene som brukeren har å velge mellom
       # dict.items() returner en liste med tuples med key value par
@@ -58,23 +58,23 @@ def chooseOption(dict, questionMessage, optionsMessage):
       # og resten av bokstavene i ordene vil være lowercase
       option = input(questionMessage).title()
       if option in dict:
-         # returner option for å kunne legge det til i order listen
+         # returner option for å kunne legge det til i order dictionaryet
          return option, dict[option]
       else:
          print("Invalid option. Please select something from the list.")
 
 def orderCoffee():
-   # definerer listen med bestillings informasjonen
+   # definerer dictionaryet med bestillings informasjonen
    order = {}
    # denne keyen er for når brukeren holder på å svare på alle spørsmålene relatert til bestillingen
    # til en kaffe så bruker vi denne til å summere prisen til kaffen 1x
    order["currentItemPrice"] = 0
-   # legger til flere av verdiene til bestillingen i order sånn at vi kan senere vise hva som har blitt bestilt
    for orderName, options in coffeeTypeOptions.items():
       # her setter vi order[orderName] og currentItemPrice til å være lik de verdiene som
       # chooseOption returner i rekkefølge basert på hvor verdiene er i return
+      # orderName er menu, coffeeSizes eller takeAwayOptions og verdien kan være large, espresso, extra large, osv
       order[orderName], currentItemPrice = chooseOption(options["options"], options["questionMessage"], options["optionsMessage"])
-      # plusser på de ulike tallene som de ulike delene av bestillingen bestemmer
+      # plusser på de ulike prisene som er basert på kaffe type, størrelse, osv
       order["currentItemPrice"] += currentItemPrice
    # må definere amount før while loopen fordi vi trenger det i sammenligning delen av loopen
    amount = 0
@@ -90,11 +90,11 @@ def orderCoffee():
       except:
          print("Please input a number.")
 
-   # legger til hvor mange ganger spilleren vil bestille denne kaffen
+   # legger til hvor mange av denne kaffeen brukeren vil bestille
    order["amount"] = amount
    # legger til bestillingen i orders for når vi skal regne ut total summen av bestillingene og
    # vise hva brukeren har bestilt
-   # list.append gjør at en verdi blir lagt til som det siste item
+   # list.append gjør at en verdi blir lagt til i en liste med len(list) + 1 som index
    orders.append(order)
 
 print("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
@@ -107,7 +107,6 @@ print("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
 # først be brukeren om å starte bestillingen
 # fordi kan ikke spørre brukeren om de vil legge en bestilling til viss de ikke har bestilt noe før 
 # då blir de forvirret og det høres feil ut
-# og brukeren må jo kunne avslutte bestillingen
 # derfor har vi orderCoffee() en gang før while loopen
 orderCoffee()
 
@@ -123,13 +122,14 @@ while True:
 # variable for den totale prisen av brukeren sin bestilling
 price = 0
 print("\n----------------------------")
-# looper igjennom bestillingene for å regne samme prisen og vise brukeren alle tingene de bestilte i en fin liste
+# looper igjennom bestillingene for å regne sammen prisen og vise brukeren alle tingene de bestilte i en fin liste
 for order in orders:
    # legger til i den totale prisen hva kaffene som er prisen for en kaffe * mengden med kaffeer bestilt
    price += order['currentItemPrice'] * order['amount']
    # order[takeAwayOptions] == 'Yes' and 'Take Away' sjekker om order[takeAwayOptions] er faktisk Yes viss det er det
    # så vil stringen "Take Away" bli brukt men viss order[takeAwayOptions] ikke er Yes då blir stringen "Eat In" brukt
    # bruker ' isteden for " for strings som er inni hoved f stringen fordi du kan ikke ha de samme string tingene inni hverandre
+   # her viser vi også alle de ulike tingene brukeren har bestilt
    print(f"{order['menu']} {order['coffeeSizes']} {(order['takeAwayOptions'] == 'Yes' and 'Take Away') or 'Eat In'} Price: ${order['currentItemPrice']} {order['amount']}x")
 
 print("----------------------------")
